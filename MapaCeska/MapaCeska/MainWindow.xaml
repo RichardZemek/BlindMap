@@ -7,20 +7,29 @@
     <Grid>
 
         <Image Name="MapImage"
-               Source="img/czechia.png"
-               Stretch="Uniform"
-               MouseDown="MapImage_MouseDown"
-               SizeChanged="MapImage_SizeChanged"/>
+           Source="img/czechia.png"
+           Stretch="Uniform"
+           MouseDown="MapImage_MouseDown"
+           SizeChanged="MapImage_SizeChanged"/>
 
-        <Canvas Name="OverlayCanvas"/>
+        <Canvas Name="OverlayCanvas"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent"/>
+
+        <TextBlock Name="ScoreText"
+               FontSize="16"
+               Margin="10"
+               IsHitTestVisible="False"/>
 
         <TextBlock Name="ActiveCityText"
-                   FontSize="20"
-                   FontWeight="Bold"
-                   Background="White"
-                   Margin="10"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"/>
+               FontSize="20"
+               FontWeight="Bold"
+               Background="White"
+               Margin="10"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               IsHitTestVisible="False"/>
 
     </Grid>
 

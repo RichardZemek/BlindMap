@@ -18,6 +18,10 @@ namespace MapaCeska
         MapPoint activeCity;
         Random rnd = new Random();
 
+        int score = 0;
+        int round = 0;
+        List<MapPoint> remainingPoints;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -25,14 +29,26 @@ namespace MapaCeska
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            remainingPoints = new List<MapPoint>(points);
             DrawPoints();
             SetRandomCity();
+            UpdateScore();
         }
 
         void SetRandomCity()
         {
-            activeCity = points[rnd.Next(points.Count)];
-            ActiveCityText.Text = "Najdi město: " + activeCity.Name;
+            if (remainingPoints.Count == 0)
+            {
+                MessageBox.Show($"Konec hry! Skóre: {score}/{points.Count}");
+                return;
+            }
+
+            int index = rnd.Next(remainingPoints.Count);
+            activeCity = remainingPoints[index];
+            remainingPoints.RemoveAt(index);
+
+            round++;
+            ActiveCityText.Text = $"Kolo {round}/{points.Count} - Najdi město: {activeCity.Name}";
         }
 
         void DrawPoints()
@@ -64,13 +80,21 @@ namespace MapaCeska
 
             if (point == activeCity)
             {
+                score++;
                 MessageBox.Show("Správně!");
-                SetRandomCity();
             }
             else
             {
                 MessageBox.Show("Špatně!");
             }
+
+            UpdateScore();
+            SetRandomCity();
+        }
+
+        void UpdateScore()
+        {
+            ScoreText.Text = $"Skóre: {score}";
         }
 
         private void MapImage_SizeChanged(object sender, SizeChangedEventArgs e)
